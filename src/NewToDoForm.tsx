@@ -1,10 +1,10 @@
 import { FormEventHandler, useState } from "react";
 
-interface Props {
+interface INewToDoFormProps {
     addToDo: (newItemTitle: string) => void;
 }
 
-export function NewToDoForm({ addToDo }: Props) {
+export function NewToDoForm({ addToDo }: INewToDoFormProps) {
 
     const [new_item, setNewItem] = useState("");
 

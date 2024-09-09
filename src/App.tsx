@@ -1,13 +1,15 @@
 import { useState } from "react";
 import "./styles.css"
 import { NewToDoForm } from "./NewToDoForm";
+import { ToDoList } from "./ToDoList";
+
+export interface IToDo {
+  id: string,
+  title: string,
+  completed: boolean,
+}
 
 export function App() {
-  interface IToDo {
-    id: string,
-    title: string,
-    completed: boolean,
-  }
 
   const [to_dos, setToDos] = useState<IToDo[]>([]);
 
@@ -47,22 +49,7 @@ export function App() {
     <>
       <NewToDoForm addToDo={addToDo} />
       <h1 className="header">To-do List</h1>
-      <ul className="list">
-        {to_dos.length === 0 && "No To-dos"}
-        {to_dos.map((toDo) => {
-
-          return <li key={toDo.id}>
-            <label>
-              <input type="checkbox" checked={toDo.completed}
-                onChange={e => toggleToDo(toDo.id, e.target.checked)}
-              />
-              {toDo.title}
-            </label>
-            <button onClick={() => deleteToDo(toDo.id)} className="btn btn-danger">Delete</button>
-          </li>
-        })}
-
-      </ul>
+      <ToDoList toDos={to_dos} />
     </>
   );
 }
