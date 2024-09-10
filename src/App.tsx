@@ -49,7 +49,7 @@ export function App() {
     <>
       <NewToDoForm addToDo={addToDo} />
       <h1 className="header">To-do List</h1>
-      <ToDoList toDos={to_dos} />
+      <ToDoList toDos={to_dos} toggleToDo={toggleToDo} deleteToDo={deleteToDo} />
     </>
   );
 }

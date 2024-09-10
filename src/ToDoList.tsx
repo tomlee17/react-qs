@@ -1,29 +1,24 @@
 import { IToDo } from "./App";
+import { ToDoItem } from "./ToDoItem";
 
 interface ToDoListProps {
     toDos: IToDo[];
+    toggleToDo: (id: string, checked: boolean) => void;
+    deleteToDo: (id: string) => void;
 }
 
-export function ToDoList({ toDos }: ToDoListProps) {
+export function ToDoList({ toDos, toggleToDo, deleteToDo }: ToDoListProps) {
     return (
         <ul className="list">
             {toDos.length === 0 && "No To-dos"}
             {toDos.map((toDo) => {
                 return (
-                    <li key={toDo.id}>
-                        <label>
-                            <input type="checkbox"
-                                checked={toDo.completed}
-                            // onChange={e => toggleToDo(toDo.id, e.target.checked)}
-                            />
-                            {toDo.title}
-                        </label>
-                        <button
-                            // onClick={() => deleteToDo(toDo.id)}
-                            className="btn btn-danger">
-                            Delete
-                        </button>
-                    </li>
+                    <ToDoItem
+                        {...toDo}
+                        key={toDo.id}
+                        toggleToDo={toggleToDo}
+                        deleteToDo={deleteToDo}
+                    />
                 );
             })}
         </ul>
