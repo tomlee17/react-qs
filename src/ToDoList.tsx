@@ -3,11 +3,9 @@ import { ToDoItem } from "./ToDoItem";
 
 interface ToDoListProps {
     toDos: IToDo[];
-    toggleToDo: (id: string, checked: boolean) => void;
-    deleteToDo: (id: string) => void;
 }
 
-export function ToDoList({ toDos, toggleToDo, deleteToDo }: ToDoListProps) {
+export function ToDoList({ toDos }: ToDoListProps) {
     return (
         <ul className="list">
             {toDos.length === 0 && "No To-dos"}
@@ -16,8 +14,6 @@ export function ToDoList({ toDos, toggleToDo, deleteToDo }: ToDoListProps) {
                     <ToDoItem
                         {...toDo}
                         key={toDo.id}
-                        toggleToDo={toggleToDo}
-                        deleteToDo={deleteToDo}
                     />
                 );
             })}

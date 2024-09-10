@@ -1,11 +1,13 @@
+import { useContext } from "react";
 import { IToDo } from "./App";
+import { ToDoActionContext } from "./ToDoActionContext";
 
 interface IToDoItemProps extends IToDo {
-    toggleToDo: (id: string, checked: boolean) => void;
-    deleteToDo: (id: string) => void;
+
 }
 
-export function ToDoItem({ id, completed, title, toggleToDo, deleteToDo }: IToDoItemProps) {
+export function ToDoItem({ id, completed, title }: IToDoItemProps) {
+    const { toggleToDo, deleteToDo } = useContext(ToDoActionContext);
 
     return (
         <li>

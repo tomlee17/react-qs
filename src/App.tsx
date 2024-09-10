@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./styles.css"
 import { NewToDoForm } from "./NewToDoForm";
 import { ToDoList } from "./ToDoList";
+import { ToDoActionContext } from "./ToDoActionContext";
 
 export interface IToDo {
   id: string,
@@ -10,8 +11,15 @@ export interface IToDo {
 }
 
 export function App() {
+  const [to_dos, setToDos] = useState<IToDo[]>(() => {
+    const local_saved_todos = localStorage.getItem("toDoItems");
 
-  const [to_dos, setToDos] = useState<IToDo[]>([]);
+    return local_saved_todos ? JSON.parse(local_saved_todos) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("toDoItems", JSON.stringify(to_dos));
+  }, [to_dos]);
 
   function addToDo(newItemTitle: string) {
 
@@ -49,7 +57,9 @@ export function App() {
     <>
       <NewToDoForm addToDo={addToDo} />
       <h1 className="header">To-do List</h1>
-      <ToDoList toDos={to_dos} toggleToDo={toggleToDo} deleteToDo={deleteToDo} />
+      <ToDoActionContext.Provider value={{ toggleToDo, deleteToDo }}>
+        <ToDoList toDos={to_dos} />
+      </ToDoActionContext.Provider>
     </>
   );
 }
